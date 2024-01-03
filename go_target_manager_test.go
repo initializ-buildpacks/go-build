@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	gobuild "github.com/paketo-buildpacks/go-build"
+	gobuild "github.com/initializ-buildpacks/go-build"
 	"github.com/sclevine/spec"
 
 	. "github.com/onsi/gomega"

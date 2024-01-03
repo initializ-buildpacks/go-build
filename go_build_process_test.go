@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	gobuild "github.com/paketo-buildpacks/go-build"
-	"github.com/paketo-buildpacks/go-build/fakes"
+	gobuild "github.com/initializ-buildpacks/go-build"
+	"github.com/initializ-buildpacks/go-build/fakes"
 	"github.com/paketo-buildpacks/packit/v2/chronos"
 	"github.com/paketo-buildpacks/packit/v2/pexec"
 	"github.com/paketo-buildpacks/packit/v2/scribe"

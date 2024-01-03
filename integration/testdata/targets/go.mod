@@ -1,4 +1,4 @@
-module github.com/paketo-buildpacks/go-build/integration/testdata/targets
+module github.com/initializ-buildpacks/go-build/integration/testdata/targets
 
 go 1.16
 

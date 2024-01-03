@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	gobuild "github.com/paketo-buildpacks/go-build"
-	"github.com/paketo-buildpacks/go-build/fakes"
+	gobuild "github.com/initializ-buildpacks/go-build"
+	"github.com/initializ-buildpacks/go-build/fakes"
 	"github.com/sclevine/spec"
 
 	. "github.com/onsi/gomega"

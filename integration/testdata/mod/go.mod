@@ -1,4 +1,4 @@
-module github.com/paketo-buildpacks/go-build/integration/testdata/mod
+module github.com/initializ-buildpacks/go-build/integration/testdata/mod
 
 go 1.15
 

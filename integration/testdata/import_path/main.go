@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/paketo-buildpacks/go-build/integration/testdata/import_path/handlers"
+	"github.com/initializ-buildpacks/go-build/integration/testdata/import_path/handlers"
 )
 
 func main() {

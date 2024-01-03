@@ -3,7 +3,7 @@ package fakes
 import (
 	"sync"
 
-	gobuild "github.com/paketo-buildpacks/go-build"
+	gobuild "github.com/initializ-buildpacks/go-build"
 )
 
 type BuildProcess struct {

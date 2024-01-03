@@ -9,7 +9,7 @@ executable and sets it as the start command for the image.
 The Go Build CNB does not provide any dependencies. However, in order to
 execute the `go build` compilation process, the buildpack requires the `go`
 dependency that can be provided by a buildpack like the [Go Distribution
-CNB](https://github.com/paketo-buildpacks/go-dist).
+CNB](https://github.com/initializ-buildpacks/go-dist).
 
 ## Usage
 

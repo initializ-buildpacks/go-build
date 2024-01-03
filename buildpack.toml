@@ -2,15 +2,15 @@ api = "0.7"
 
 [buildpack]
   description = "A buildpack for compiling Go applications and writing start commands"
-  homepage = "https://github.com/paketo-buildpacks/go-build"
-  id = "paketo-buildpacks/go-build"
+  homepage = "https://github.com/initializ-buildpacks/go-build"
+  id = "initializ-buildpacks/go-build"
   name = "Paketo Buildpack for Go Build"
   keywords = ["go", "build", "compilation", "binary"]
   sbom-formats = ["application/vnd.cyclonedx+json", "application/spdx+json", "application/vnd.syft+json"]
 
   [[buildpack.licenses]]
     type = "Apache-2.0"
-    uri = "https://github.com/paketo-buildpacks/go-build/blob/main/LICENSE"
+    uri = "https://github.com/initializ-buildpacks/go-build/blob/main/LICENSE"
 
 [metadata]
   include-files = ["bin/build", "bin/detect", "bin/run", "buildpack.toml"]

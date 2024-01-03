@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	gobuild "github.com/paketo-buildpacks/go-build"
+	gobuild "github.com/initializ-buildpacks/go-build"
 	"github.com/paketo-buildpacks/packit/v2"
 	"github.com/paketo-buildpacks/packit/v2/chronos"
 	"github.com/paketo-buildpacks/packit/v2/pexec"
