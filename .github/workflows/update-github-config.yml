@@ -16,21 +16,21 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        token: ${{ secrets.PAT }}
 
     - name: Checkout github-config
       uses: actions/checkout@v3
       with:
-        repository: paketo-buildpacks/github-config
+        repository: initializ-buildpacks/github-config
         path: github-config
 
     - name: Checkout Branch
-      uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
+      uses: initializ-buildpacks/github-config/actions/pull-request/checkout-branch@main
       with:
         branch: automation/github-config/update
 
     - name: Run the sync action
-      uses: paketo-buildpacks/github-config/actions/sync@main
+      uses: initializ-buildpacks/github-config/actions/sync@main
       with:
         workspace: /github/workspace
         config: /github/workspace/github-config/implementation
@@ -40,24 +40,24 @@ jobs:
 
     - name: Commit
       id: commit
-      uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@main
+      uses: initializ-buildpacks/github-config/actions/pull-request/create-commit@main
       with:
         message: "Updating github-config"
         pathspec: "."
-        keyid: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY_ID }}
-        key: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY }}
+        keyid: ${{ secrets.initializ_BOT_GPG_SIGNING_KEY_ID }}
+        key: ${{ secrets.initializ_BOT_GPG_SIGNING_KEY }}
 
     - name: Push Branch
       if: ${{ steps.commit.outputs.commit_sha != '' }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
+      uses: initializ-buildpacks/github-config/actions/pull-request/push-branch@main
       with:
         branch: automation/github-config/update
 
     - name: Open Pull Request
       if: ${{ steps.commit.outputs.commit_sha != '' }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/open@main
+      uses: initializ-buildpacks/github-config/actions/pull-request/open@main
       with:
-        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        token: ${{ secrets.PAT }}
         title: "Updates github-config"
         branch: automation/github-config/update
 
@@ -68,7 +68,7 @@ jobs:
     if: ${{ always() && needs.build.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue
-      uses: paketo-buildpacks/github-config/actions/issue/file@main
+      uses: initializ-buildpacks/github-config/actions/issue/file@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: ${{ github.repository }}
