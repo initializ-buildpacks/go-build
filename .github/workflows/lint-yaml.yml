@@ -15,7 +15,7 @@ jobs:
     - name: Checkout github-config
       uses: actions/checkout@v3
       with:
-        repository: paketo-buildpacks/github-config
+        repository: initializ-buildpacks/github-config
         path: github-config
 
     - name: Set up Python
