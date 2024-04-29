@@ -77,6 +77,10 @@ function main() {
     util::print::title "Setting default pack builder image..."
     pack config default-builder "${builder}"
 
+    util::print::title "Setting initzbuilder as a default builder"
+    pack config trusted-builders add "${builder}"
+
+    util::print::title "Running tests for builder: '${builder}'"
     tests::run "${builder}" "${testout}"
   done
 
