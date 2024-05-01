@@ -1,6 +1,6 @@
 {
   "go-dist": "github.com/initializ-buildpacks/go-dist",
-  "watchexec": "github.com/initializ-buildpacks/watchexec",
+  "watchexec": "github.com/paketo-buildpacks/watchexec",
   "builders": [
     "initializbuildpacks/securepacks-initzbuilder"
   ]
