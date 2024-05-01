@@ -1,7 +1,10 @@
 {
-  "go-dist": "github.com/initializ-buildpacks/go-dist",
-  "watchexec": "github.com/initializ-buildpacks/watchexec",
+  "go-dist": "github.com/paketo-buildpacks/go-dist",
+  "watchexec": "github.com/paketo-buildpacks/watchexec",
   "builders": [
-    "initializbuildpacks/securepacks-initzbuilder"
+    "paketobuildpacks/builder-jammy-buildpackless-static",
+    "paketobuildpacks/builder-jammy-buildpackless-tiny",
+    "paketobuildpacks/builder-jammy-buildpackless-base",
+    "paketobuildpacks/builder-jammy-buildpackless-full"
   ]
 }
