@@ -16,7 +16,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        token: ${{ secrets.PAT }}
 
     - name: Checkout github-config
       uses: actions/checkout@v3
@@ -44,8 +44,8 @@ jobs:
       with:
         message: "Updating github-config"
         pathspec: "."
-        keyid: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY_ID }}
-        key: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY }}
+        keyid: ${{ secrets.INITIALIZ_BOT_GPG_SIGNING_KEY_ID }}
+        key: ${{ secrets.INITIALIZ_BOT_GPG_SIGNING_KEY }}
 
     - name: Push Branch
       if: ${{ steps.commit.outputs.commit_sha != '' }}
@@ -57,7 +57,7 @@ jobs:
       if: ${{ steps.commit.outputs.commit_sha != '' }}
       uses: initializ-buildpacks/github-config/actions/pull-request/open@main
       with:
-        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        token: ${{ secrets.PAT }}
         title: "Updates github-config"
         branch: automation/github-config/update
 
