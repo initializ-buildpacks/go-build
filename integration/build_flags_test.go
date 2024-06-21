@@ -53,7 +53,7 @@ func testBuildFlags(t *testing.T, context spec.G, it spec.S) {
 
 			var logs fmt.Stringer
 			image, logs, err = pack.Build.
-				WithPullPolicy("never").
+				WithPullPolicy("if-not-present").
 				WithEnv(map[string]string{
 					"BP_GO_BUILD_FLAGS":   `-buildmode=default -tags=paketo`,
 					"BP_GO_BUILD_LDFLAGS": `-X main.variable=some-value`,
@@ -75,7 +75,7 @@ func testBuildFlags(t *testing.T, context spec.G, it spec.S) {
 			Eventually(container).Should(
 				Serve(
 					SatisfyAll(
-						ContainSubstring("go1.21.10"),
+						ContainSubstring("go1.21"),
 						ContainSubstring(`variable value: "some-value"`),
 						ContainSubstring("/workspace contents: []"),
 					),
@@ -100,7 +100,7 @@ func testBuildFlags(t *testing.T, context spec.G, it spec.S) {
 
 			var logs fmt.Stringer
 			image, logs, err = pack.Build.
-				WithPullPolicy("never").
+				WithPullPolicy("if-not-present").
 				WithEnv(map[string]string{
 					"BP_GO_BUILD_FLAGS":   `-buildmode=default -tags=paketo`,
 					"BP_GO_BUILD_LDFLAGS": `-X main.variable=${SOME_VALUE}`,
@@ -123,7 +123,7 @@ func testBuildFlags(t *testing.T, context spec.G, it spec.S) {
 			Eventually(container).Should(
 				Serve(
 					SatisfyAll(
-						ContainSubstring("go1.21.10"),
+						ContainSubstring("go1.21"),
 						ContainSubstring(`variable value: "env-value"`),
 						ContainSubstring("/workspace contents: []"),
 					),

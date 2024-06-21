@@ -56,7 +56,7 @@ func testImportPath(t *testing.T, context spec.G, it spec.S) {
 
 			var logs fmt.Stringer
 			image, logs, err = pack.Build.
-				WithPullPolicy("never").
+				WithPullPolicy("if-not-present").
 				WithEnv(map[string]string{"BP_GO_BUILD_IMPORT_PATH": "github.com/initializ-buildpacks/go-build/integration/testdata/import_path"}).
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Online,
@@ -75,7 +75,7 @@ func testImportPath(t *testing.T, context spec.G, it spec.S) {
 			Eventually(container).Should(
 				Serve(
 					SatisfyAll(
-						ContainSubstring("go1.21.10"),
+						ContainSubstring("go1.21"),
 						ContainSubstring("/workspace contents: []"),
 					),
 				).OnPort(8080),

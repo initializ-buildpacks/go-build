@@ -58,7 +58,7 @@ func testBuildFailure(t *testing.T, context spec.G, it spec.S) {
 			Expect(file.Close()).To(Succeed())
 
 			_, logs, err := pack.Build.
-				WithPullPolicy("never").
+				WithPullPolicy("if-not-present").
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Online,
 					settings.Buildpacks.GoBuild.Online,
@@ -105,7 +105,7 @@ func testBuildFailure(t *testing.T, context spec.G, it spec.S) {
 			Expect(os.WriteFile(filepath.Join(source, "buildpack.yml"), nil, os.ModePerm)).To(Succeed())
 
 			_, logs, err := pack.Build.
-				WithPullPolicy("never").
+				WithPullPolicy("if-not-present").
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Online,
 					settings.Buildpacks.GoBuild.Online,

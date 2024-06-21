@@ -68,7 +68,7 @@ func testTargets(t *testing.T, context spec.G, it spec.S) {
 			var err error
 			var logs fmt.Stringer
 			image, logs, err = pack.Build.
-				WithPullPolicy("never").
+				WithPullPolicy("if-not-present").
 				WithEnv(map[string]string{"BP_GO_TARGETS": "first:./second"}).
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Online,
