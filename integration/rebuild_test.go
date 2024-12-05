@@ -61,7 +61,7 @@ func testRebuild(t *testing.T, context spec.G, it spec.S) {
 			Expect(err).NotTo(HaveOccurred())
 
 			build := pack.Build.
-				WithPullPolicy("if-not-present").
+				WithPullPolicy("never").
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Online,
 					settings.Buildpacks.GoBuild.Online,
@@ -100,7 +100,7 @@ func testRebuild(t *testing.T, context spec.G, it spec.S) {
 
 			Eventually(container).Should(BeAvailable())
 
-			//Expect(secondImage.Buildpacks[1].Layers["targets"].SHA).To(Equal(firstImage.Buildpacks[1].Layers["targets"].SHA))
+			Expect(secondImage.Buildpacks[1].Layers["targets"].SHA).To(Equal(firstImage.Buildpacks[1].Layers["targets"].SHA))
 		})
 	})
 }
