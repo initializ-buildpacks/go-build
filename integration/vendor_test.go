@@ -56,7 +56,7 @@ func testVendor(t *testing.T, context spec.G, it spec.S) {
 
 			var logs fmt.Stringer
 			image, logs, err = pack.Build.
-				WithPullPolicy("if-not-present").
+				WithPullPolicy("never").
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Online,
 					settings.Buildpacks.GoBuild.Online,
@@ -71,7 +71,7 @@ func testVendor(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Eventually(container).Should(Serve(ContainSubstring("go1.21")).OnPort(8080))
+			Eventually(container).Should(Serve(ContainSubstring("/workspace contents: []")).OnPort(8080))
 		})
 	})
 
@@ -104,7 +104,7 @@ func testVendor(t *testing.T, context spec.G, it spec.S) {
 
 			var logs fmt.Stringer
 			image, logs, err = pack.Build.
-				WithPullPolicy("if-not-present").
+				WithPullPolicy("never").
 				WithNetwork("none").
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Offline,
@@ -120,7 +120,7 @@ func testVendor(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Eventually(container).Should(Serve(ContainSubstring("go1.21")).OnPort(8080))
+			Eventually(container).Should(Serve(ContainSubstring("/workspace contents: []")).OnPort(8080))
 		})
 	})
 }

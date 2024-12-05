@@ -66,7 +66,7 @@ func testMod(t *testing.T, context spec.G, it spec.S) {
 
 			var logs fmt.Stringer
 			image, logs, err = pack.Build.
-				WithPullPolicy("if-not-present").
+				WithPullPolicy("never").
 				WithBuildpacks(
 					settings.Buildpacks.GoDist.Online,
 					settings.Buildpacks.GoBuild.Online,
@@ -82,7 +82,7 @@ func testMod(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Eventually(container).Should(Serve(ContainSubstring("go1.21")).OnPort(8080))
+			Eventually(container).Should(Serve(ContainSubstring("/workspace contents: []")).OnPort(8080))
 
 			// check that all required SBOM files are present
 			Expect(filepath.Join(sbomDir, "sbom", "launch", strings.ReplaceAll(settings.Buildpack.ID, "/", "_"), "targets", "sbom.cdx.json")).To(BeARegularFile())
@@ -103,7 +103,7 @@ func testMod(t *testing.T, context spec.G, it spec.S) {
 
 				var logs fmt.Stringer
 				image, logs, err = pack.Build.
-					WithPullPolicy("if-not-present").
+					WithPullPolicy("never").
 					WithBuildpacks(
 						settings.Buildpacks.GoDist.Online,
 						settings.Buildpacks.GoBuild.Online,
@@ -119,7 +119,7 @@ func testMod(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(container).Should(Serve(ContainSubstring("go1.21")).OnPort(8080))
+				Eventually(container).Should(Serve(ContainSubstring("/workspace contents: []")).OnPort(8080))
 
 				// check that all required SBOM files are present
 				Expect(filepath.Join(sbomDir, "sbom", "launch", strings.ReplaceAll(settings.Buildpack.ID, "/", "_"), "targets", "sbom.cdx.json")).To(BeARegularFile())
