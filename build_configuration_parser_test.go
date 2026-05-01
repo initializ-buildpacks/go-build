@@ -41,12 +41,12 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 	context("when BP_GO_TARGETS is set", func() {
 		it.Before(func() {
-			os.Setenv("BP_GO_TARGETS", "some/target1:./some/target2")
+			Expect(os.Setenv("BP_GO_TARGETS", "some/target1:./some/target2")).To(Succeed())
 			targetManager.CleanAndValidateCall.Returns.StringSlice = []string{"./some/target1", "./some/target2"}
 		})
 
 		it.After(func() {
-			os.Unsetenv("BP_GO_TARGETS")
+			Expect(os.Unsetenv("BP_GO_TARGETS")).To(Succeed())
 		})
 
 		it("uses the values in the env var", func() {
@@ -63,15 +63,15 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 	context("when BP_GO_BUILD_FLAGS is set", func() {
 		it.Before(func() {
-			os.Setenv("BP_GO_BUILD_FLAGS", `-buildmode=default -tags=paketo -ldflags="-X main.variable=some-value" -first=$FIRST -second=${SECOND}`)
-			os.Setenv("FIRST", "first-flag")
-			os.Setenv("SECOND", "second-flag")
+			Expect(os.Setenv("BP_GO_BUILD_FLAGS", `-buildmode=default -tags=paketo -ldflags="-X main.variable=some-value" -first=$FIRST -second=${SECOND}`)).To(Succeed())
+			Expect(os.Setenv("FIRST", "first-flag")).To(Succeed())
+			Expect(os.Setenv("SECOND", "second-flag")).To(Succeed())
 		})
 
 		it.After(func() {
-			os.Unsetenv("BP_GO_BUILD_FLAGS")
-			os.Unsetenv("FIRST")
-			os.Unsetenv("SECOND")
+			Expect(os.Unsetenv("BP_GO_BUILD_FLAGS")).To(Succeed())
+			Expect(os.Unsetenv("FIRST")).To(Succeed())
+			Expect(os.Unsetenv("SECOND")).To(Succeed())
 		})
 
 		it("uses the values in the env var", func() {
@@ -94,13 +94,13 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 	context("when BP_GO_BUILD_LDFLAGS is set", func() {
 		it.Before(func() {
-			os.Setenv("BP_GO_BUILD_LDFLAGS", `-X main.variable=some-value -envFlag=$ENVVAR`)
-			os.Setenv("ENVVAR", "env-value")
+			Expect(os.Setenv("BP_GO_BUILD_LDFLAGS", `-X main.variable=some-value -envFlag=$ENVVAR`)).To(Succeed())
+			Expect(os.Setenv("ENVVAR", "env-value")).To(Succeed())
 		})
 
 		it.After(func() {
-			os.Unsetenv("BP_GO_BUILD_LDFLAGS")
-			os.Unsetenv("ENVVAR")
+			Expect(os.Unsetenv("BP_GO_BUILD_LDFLAGS")).To(Succeed())
+			Expect(os.Unsetenv("ENVVAR")).To(Succeed())
 		})
 
 		it("uses the values in the env var", func() {
@@ -118,15 +118,15 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 		context("and BP_GO_BUILD_FLAGS is set", func() {
 			it.Before(func() {
-				os.Setenv("BP_GO_BUILD_FLAGS", `-buildmode=default -tags=paketo -first=$FIRST -second=${SECOND}`)
-				os.Setenv("FIRST", "first-flag")
-				os.Setenv("SECOND", "second-flag")
+				_ = os.Setenv("BP_GO_BUILD_FLAGS", `-buildmode=default -tags=paketo -first=$FIRST -second=${SECOND}`)
+				_ = os.Setenv("FIRST", "first-flag")
+				_ = os.Setenv("SECOND", "second-flag")
 			})
 
 			it.After(func() {
-				os.Unsetenv("BP_GO_BUILD_FLAGS")
-				os.Unsetenv("FIRST")
-				os.Unsetenv("SECOND")
+				_ = os.Unsetenv("BP_GO_BUILD_FLAGS")
+				_ = os.Unsetenv("FIRST")
+				_ = os.Unsetenv("SECOND")
 			})
 
 			it("adds the -ldflags to the rest of the build flags", func() {
@@ -150,11 +150,11 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 		context("and BP_GO_BUILD_FLAGS includes -ldflags", func() {
 			it.Before(func() {
-				os.Setenv("BP_GO_BUILD_FLAGS", `-buildmode=default -tags=paketo -ldflags="-X buildflags.variable=some-buildflags-value"`)
+				_ = os.Setenv("BP_GO_BUILD_FLAGS", `-buildmode=default -tags=paketo -ldflags="-X buildflags.variable=some-buildflags-value"`)
 			})
 
 			it.After(func() {
-				os.Unsetenv("BP_GO_BUILD_FLAGS")
+				_ = os.Unsetenv("BP_GO_BUILD_FLAGS")
 			})
 
 			it("uses the value for -ldflags that comes from BP_GO_BUILD_LDFLAGS and removes the value set in BP_GO_BUILD_FLAGS", func() {
@@ -176,11 +176,11 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 	context("when BP_GO_BUILD_IMPORT_PATH is set", func() {
 		it.Before(func() {
-			os.Setenv("BP_GO_BUILD_IMPORT_PATH", "./some/import/path")
+			_ = os.Setenv("BP_GO_BUILD_IMPORT_PATH", "./some/import/path")
 		})
 
 		it.After(func() {
-			os.Unsetenv("BP_GO_BUILD_IMPORT_PATH")
+			_ = os.Unsetenv("BP_GO_BUILD_IMPORT_PATH")
 		})
 
 		it("uses the values in the env var", func() {
@@ -197,11 +197,11 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 	context("when BP_GO_WORK_USE is set", func() {
 		it.Before(func() {
-			os.Setenv("BP_GO_WORK_USE", "./some/module1:./some/module2")
+			_ = os.Setenv("BP_GO_WORK_USE", "./some/module1:./some/module2")
 		})
 
 		it.After(func() {
-			os.Unsetenv("BP_GO_WORK_USE")
+			_ = os.Unsetenv("BP_GO_WORK_USE")
 		})
 
 		it("uses the values in the env var", func() {
@@ -241,11 +241,11 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 		})
 		context("go targets fail to be cleaned an validated", func() {
 			it.Before(func() {
-				os.Setenv("BP_GO_TARGETS", "./some/target")
+				_ = os.Setenv("BP_GO_TARGETS", "./some/target")
 				targetManager.CleanAndValidateCall.Returns.Error = errors.New("failed to clean and validate targets")
 			})
 			it.After(func() {
-				os.Unsetenv("BP_GO_TARGETS")
+				_ = os.Unsetenv("BP_GO_TARGETS")
 			})
 			it("returns an error", func() {
 				_, err := parser.Parse("1.2.3", workingDir)
@@ -266,11 +266,11 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 		context("when the build flags fail to parse", func() {
 			it.Before(func() {
-				os.Setenv("BP_GO_BUILD_FLAGS", "\"")
+				_ = os.Setenv("BP_GO_BUILD_FLAGS", "\"")
 			})
 
 			it.After(func() {
-				os.Unsetenv("BP_GO_BUILD_FLAGS")
+				_ = os.Unsetenv("BP_GO_BUILD_FLAGS")
 			})
 
 			it("returns an error", func() {
@@ -280,11 +280,11 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 		})
 		context("when the ldflags fail to parse", func() {
 			it.Before(func() {
-				os.Setenv("BP_GO_BUILD_LDFLAGS", "\"")
+				_ = os.Setenv("BP_GO_BUILD_LDFLAGS", "\"")
 			})
 
 			it.After(func() {
-				os.Unsetenv("BP_GO_BUILD_LDFLAGS")
+				_ = os.Unsetenv("BP_GO_BUILD_LDFLAGS")
 			})
 
 			it("returns an error", func() {
@@ -295,11 +295,11 @@ func testBuildConfigurationParser(t *testing.T, context spec.G, it spec.S) {
 
 		context("when the ldflags cannot be parsed as a single -ldflags value", func() {
 			it.Before(func() {
-				os.Setenv("BP_GO_BUILD_LDFLAGS", `"spaces in quotes"`)
+				_ = os.Setenv("BP_GO_BUILD_LDFLAGS", `"spaces in quotes"`)
 			})
 
 			it.After(func() {
-				os.Unsetenv("BP_GO_BUILD_LDFLAGS")
+				_ = os.Unsetenv("BP_GO_BUILD_LDFLAGS")
 			})
 
 			it("returns an error", func() {

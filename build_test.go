@@ -117,14 +117,13 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		content, err := io.ReadAll(cdx.Content)
 		Expect(err).NotTo(HaveOccurred())
 		Expect(string(content)).To(MatchJSON(`{
+			"$schema": "http://cyclonedx.org/schema/bom-1.3.schema.json",
 			"bomFormat": "CycloneDX",
-			"components": [],
 			"metadata": {
 				"tools": [
 					{
-						"name": "syft",
-						"vendor": "anchore",
-						"version": "[not provided]"
+						"name": "",
+						"vendor": "anchore"
 					}
 				]
 			},
@@ -141,16 +140,28 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 				"created": "0001-01-01T00:00:00Z",
 				"creators": [
 					"Organization: Anchore, Inc",
-					"Tool: syft-"
+					"Tool: -"
 				],
-				"licenseListVersion": "3.16"
+				"licenseListVersion": "3.28"
 			},
 			"dataLicense": "CC0-1.0",
-			"documentNamespace": "https://paketo.io/packit/unknown-source-type/unknown-88cfa225-65e0-5755-895f-c1c8f10fde76",
+			"documentNamespace": "https://paketo.io/unknown-source-type/unknown-139eda9a-585c-5678-88d8-988131078801",
 			"name": "unknown",
+			"packages": [
+				{
+					"SPDXID": "SPDXRef-DocumentRoot-Unknown-",
+					"copyrightText": "NOASSERTION",
+					"downloadLocation": "NOASSERTION",
+					"filesAnalyzed": false,
+					"licenseConcluded": "NOASSERTION",
+					"licenseDeclared": "NOASSERTION",
+					"name": "",
+					"supplier": "NOASSERTION"
+				}
+			],
 			"relationships": [
 				{
-					"relatedSpdxElement": "SPDXRef-DOCUMENT",
+					"relatedSpdxElement": "SPDXRef-DocumentRoot-Unknown-",
 					"relationshipType": "DESCRIBES",
 					"spdxElementId": "SPDXRef-DOCUMENT"
 				}
@@ -207,11 +218,11 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 	context("BP_LIVE_RELOAD_ENABLED=true in the build environment", func() {
 		it.Before(func() {
-			os.Setenv("BP_LIVE_RELOAD_ENABLED", "true")
+			_ = os.Setenv("BP_LIVE_RELOAD_ENABLED", "true")
 		})
 
 		it.After(func() {
-			os.Unsetenv("BP_LIVE_RELOAD_ENABLED")
+			_ = os.Unsetenv("BP_LIVE_RELOAD_ENABLED")
 		})
 
 		it("wraps the target process(es) in watchexec", func() {
@@ -505,11 +516,11 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 		context("when BP_LIVE_RELOAD_ENABLED value is invalid", func() {
 			it.Before(func() {
-				os.Setenv("BP_LIVE_RELOAD_ENABLED", "not-a-bool")
+				_ = os.Setenv("BP_LIVE_RELOAD_ENABLED", "not-a-bool")
 			})
 
 			it.After(func() {
-				os.Unsetenv("BP_LIVE_RELOAD_ENABLED")
+				_ = os.Unsetenv("BP_LIVE_RELOAD_ENABLED")
 			})
 			it("returns an error", func() {
 				_, err := build(packit.BuildContext{
