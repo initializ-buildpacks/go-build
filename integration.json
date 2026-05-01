@@ -1,5 +1,5 @@
 {
-  "go-dist": "github.com/paketo-buildpacks/go-dist",
+  "go-dist": "github.com/initializ-buildpacks/go-dist",
   "watchexec": "github.com/paketo-buildpacks/watchexec",
   "builders": [
     "paketobuildpacks/builder-jammy-buildpackless-full"

@@ -14,15 +14,15 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Setup Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v5
       with:
         go-version: 'stable'
 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@v7
       with:
-        version: latest
-        args: --timeout 3m0s
+        version: v2.11.4
+        args: --timeout 5m0s
